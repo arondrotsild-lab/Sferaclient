@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "SFERA — CRM для бизнеса"
+version = "1.0.0"
+id = "artifacts/sfera-landing"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24914
+
+[services.development]
+run = "pnpm --filter @workspace/sfera-landing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sfera-landing", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/sfera-landing/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24914"
+BASE_PATH = "/"
